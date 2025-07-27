@@ -10,15 +10,43 @@ module vpc {
     region = var.region
 }
 
+
+module ec2-1 {
+    source = "../ec2"
+    ec2-ami = var.ec2-ami
+    ec2-type = var.ec2-type
+    ec2-environment = var.ec2-environment
+    region = var.region
+    subnet_id = module.vpc.subnet1
+}
+
+module ec2-2 {
+    source = "../ec2"
+    ec2-ami = var.ec2-ami
+    ec2-type = var.ec2-type
+    ec2-environment = var.ec2-environment
+    region = var.region
+    subnet_id = module.vpc.subnet2
+}
+
+module ec2-3 {
+    source = "../ec2"
+    ec2-ami = var.ec2-ami
+    ec2-type = var.ec2-type
+    ec2-environment = var.ec2-environment
+    region = var.region
+    subnet_id = module.vpc.subnet3
+}
+
 variable region {
-  default = "us-east-2"
+  default = ""
 }
 
 variable vpc-cidr {
-    default = "10.0.0.0/16"
+    default = ""
 }
 variable vpc-environment {
-    default = "Dev"
+    default = ""
 }
 
 variable subnet {
@@ -28,30 +56,22 @@ variable subnet {
     Environment = string
   }))
  default = [
-   { cidr = "10.0.1.0/24", az = "us-east-2a", Environment = "Dev"},
-   { cidr = "10.0.2.0/24", az = "us-east-2b", Environment = "Dev"},
-   { cidr = "10.0.3.0/24", az = "us-east-2c", Environment = "Dev"},
+   { cidr = "", az = "", Environment = ""},
+   { cidr = "", az = "", Environment = ""},
+   { cidr = "", az = "", Environment = ""},
   ]
 }
 
-module ec2 {
-    source = "../ec2"
-    ec2-ami = var.ec2-ami
-    ec2-type = var.ec2-type
-    ec2-environment = var.ec2-environment
-    region = module.vpc.subnet1
-}
-
 variable ec2-ami {
-    default = "ami-08ca1d1e465fbfe0c"
+    default = ""
 }
 
 variable ec2-type {
-    default = "t2.micro"
+    default = ""
 }
 
 variable ec2-environment {
-    default = "Dev"
+    default = ""
 }
 
 
